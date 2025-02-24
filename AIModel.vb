@@ -1,33 +1,30 @@
-﻿Imports RestSharp
+﻿Imports System.Net.Http
 Imports Newtonsoft.Json.Linq
+Imports System.Text
 
 Public Class AIModel
-    Public Shared Function GetAIResponse(prompt As String) As String
+    Private Shared ReadOnly client As New HttpClient()
+
+    Public Shared Async Function GetAIResponse(prompt As String) As Task(Of String)
         Try
-            ' Create REST client
-            Dim client As New RestClient("http://localhost:11434/api/generate")
-            Dim request As New RestRequest(Method.Post)
+            Dim apiUrl As String = "http://localhost:11434/api/generate"
+            Dim jsonBody As String = "{""model"":""llama3"",""prompt"":""" & prompt & """,""stream"":false}"
+            Dim content As New StringContent(jsonBody, Encoding.UTF8, "application/json")
 
-            ' Add JSON request body
-            request.AddJsonBody(New With {
-                .model = "llama3",
-                .prompt = prompt,
-                .stream = False
-            })
+            ' Send request
+            Dim response As HttpResponseMessage = Await client.PostAsync(apiUrl, content)
 
-            ' Execute request and get response
-            Dim response As RestResponse = client.Execute(request)
-
-            ' Log response to debug
+            ' Log response
             Console.WriteLine("Response Status: " & response.StatusCode)
-            Console.WriteLine("Response Content: " & response.Content)
+            Dim responseData As String = Await response.Content.ReadAsStringAsync()
+            Console.WriteLine("Response Content: " & responseData)
 
-            ' Check if response is valid
-            If response.StatusCode = System.Net.HttpStatusCode.OK Then
-                Dim jsonResponse As JObject = JObject.Parse(response.Content)
+            ' Check if response is successful
+            If response.IsSuccessStatusCode Then
+                Dim jsonResponse As JObject = JObject.Parse(responseData)
                 Return jsonResponse("response").ToString()
             Else
-                Return "Error: " & response.StatusDescription
+                Return "Error: " & response.StatusCode
             End If
         Catch ex As Exception
             Return "Error: " & ex.Message
