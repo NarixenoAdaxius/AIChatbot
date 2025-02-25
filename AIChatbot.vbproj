@@ -196,6 +196,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MessageBackgroundConverter.vb" />
     <Compile Include="Models\UserModel.vb" />
     <Compile Include="Utilities.vb" />
     <Page Include="MainWindow.xaml">
