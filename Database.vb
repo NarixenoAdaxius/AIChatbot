@@ -2,7 +2,7 @@
 Imports MongoDB.Driver
 
 Public Class Database
-    Private Shared ReadOnly ConnectionString As String = "mongodb+srv://narixeno:Ia9P7GLIY7P9BctH@backendtest.i5ewjcx.mongodb.net/?retryWrites=true&w=majority&appName=backendtest"
+    Private Shared ReadOnly ConnectionString As String = ""
 
     Public Shared ReadOnly Client As New MongoClient(ConnectionString)
     Public Shared ReadOnly Database As IMongoDatabase = Client.GetDatabase("AIChatbotDB")
