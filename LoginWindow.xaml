@@ -11,84 +11,115 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         ResizeMode="NoResize">
 
-	<Window.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="DeepPurple" SecondaryColor="Lime"/>
-				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml"/>
-				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PasswordBox.xaml"/>
-				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/Generic.xaml"/>
-			</ResourceDictionary.MergedDictionaries>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="DeepPurple" SecondaryColor="Lime"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PasswordBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-			<!-- Custom Rounded TextBox Style -->
-			<Style x:Key="RoundedTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
-				<Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource PrimaryHueMidBrush}"/>
-				<Setter Property="BorderThickness" Value="0"/>
-				<Setter Property="Padding" Value="10,8"/>
-			</Style>
+            <!-- Custom Rounded TextBox Style -->
+            <Style x:Key="RoundedTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource PrimaryHueMidBrush}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="10,8"/>
+            </Style>
 
-			<!-- Custom Rounded PasswordBox Style -->
-			<Style x:Key="RoundedPasswordBox" TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
-				<Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource PrimaryHueMidBrush}"/>
-				<Setter Property="BorderThickness" Value="0"/>
-				<Setter Property="Padding" Value="10,8"/>
-			</Style>
-		</ResourceDictionary>
-	</Window.Resources>
+            <!-- Custom Rounded PasswordBox Style -->
+            <Style x:Key="RoundedPasswordBox" TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource MaterialDesignOutlinedPasswordBox}">
+                <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource PrimaryHueMidBrush}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="10,8"/>
+            </Style>
 
-	<materialDesign:Card Margin="20" Padding="20" Background="#1E1E1E" UniformCornerRadius="8">
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<!-- Extra row for register button -->
-			</Grid.RowDefinitions>
+            <!-- Custom Rounded Button Style -->
+            <Style x:Key="RoundedButton" TargetType="Button">
+                <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Margin" Value="0,8"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                                    CornerRadius="20" 
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <!-- Hover Effect -->
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource PrimaryHueDarkBrush}"/>
+                    </Trigger>
+                    <!-- Pressed Effect -->
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
 
-			<TextBlock Grid.Row="0" Text="Login to AI Chatbot"
+    <materialDesign:Card Margin="20" Padding="20" Background="#1E1E1E" UniformCornerRadius="8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <!-- Extra row for register button -->
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Login to AI Chatbot"
                        FontSize="18" FontWeight="Bold"
                        HorizontalAlignment="Center" Margin="0,0,0,16"/>
 
-			<!-- Username Input -->
-			<materialDesign:Card Grid.Row="1" Background="#333333" UniformCornerRadius="8" Margin="0,8">
-				<TextBox Name="txtUsername"
+            <!-- Username Input -->
+            <materialDesign:Card Grid.Row="1" Background="#333333" UniformCornerRadius="8" Margin="0,8">
+                <TextBox Name="txtUsername"
                          materialDesign:HintAssist.Hint="Username"
                          Style="{StaticResource RoundedTextBox}"
                          Background="Transparent" Foreground="White"
                          Margin="10"/>
-			</materialDesign:Card>
+            </materialDesign:Card>
 
-			<!-- Password Input -->
-			<materialDesign:Card Grid.Row="2" Background="#333333" UniformCornerRadius="8" Margin="0,8">
-				<PasswordBox Name="txtPassword"
+            <!-- Password Input -->
+            <materialDesign:Card Grid.Row="2" Background="#333333" UniformCornerRadius="8" Margin="0,8">
+                <PasswordBox Name="txtPassword"
                              materialDesign:HintAssist.Hint="Password"
                              Style="{StaticResource RoundedPasswordBox}"
                              Background="Transparent" Foreground="White"
                              Margin="10"/>
-			</materialDesign:Card>
+            </materialDesign:Card>
 
-			<!-- Login Button -->
-			<Button Grid.Row="3" Name="btnLogin" Click="btnLogin_Click"
-                    Background="{DynamicResource PrimaryHueMidBrush}" Foreground="White"
-                    Margin="0,8" Height="40" FontSize="14">
-				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-					<materialDesign:PackIcon Kind="Lock" Width="20" Height="20" Margin="0,0,8,0"/>
-					<TextBlock Text="Login"/>
-				</StackPanel>
-			</Button>
+            <!-- Login Button -->
+            <Button Grid.Row="3" Name="btnLogin" Click="btnLogin_Click"
+                    Style="{StaticResource RoundedButton}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="Lock" Width="20" Height="20" Margin="0,0,8,0"/>
+                    <TextBlock Text="Login"/>
+                </StackPanel>
+            </Button>
 
-			<!-- Spacing for Register Button -->
-			<StackPanel Grid.Row="4" Height="5"/>
+            <!-- Spacing for Register Button -->
+            <StackPanel Grid.Row="4" Height="5"/>
 
-			<!-- Register Button (Now properly aligned) -->
-			<Button Grid.Row="4" Name="btnRegister" Click="btnRegister_Click"
-                    Background="Transparent" Foreground="LightGray"
-                    FontSize="14" Padding="5" Height="35" Margin="0,5,0,0" Grid.RowSpan="2">
-				<TextBlock Text="Don't have an account? Register Account Instead"/>
-			</Button>
-		</Grid>
-	</materialDesign:Card>
+            <!-- Register Button -->
+            <Button Grid.Row="5" Name="btnRegister" Click="btnRegister_Click"
+                    Style="{StaticResource RoundedButton}" Background="Transparent" Foreground="LightGray">
+                <TextBlock Text="Don't have an account? Register the account instead"/>
+            </Button>
+        </Grid>
+    </materialDesign:Card>
 </Window>
