@@ -6,18 +6,7 @@ Imports System.Windows
 
 Public Class AuthService
     ' Collection reference
-    Private Shared UsersCollection As IMongoCollection(Of BsonDocument) = Database.Users
-
-    ' Test MongoDB Connection Before Running Queries
-    Private Shared Function TestConnection() As Boolean
-        Try
-            Dim count = UsersCollection.EstimatedDocumentCount()
-            Return True
-        Catch ex As Exception
-            MessageBox.Show("MongoDB Connection Failed: " & ex.Message, "Database Error", MessageBoxButton.OK, MessageBoxImage.Error)
-            Return False
-        End Try
-    End Function
+    Private Shared ReadOnly UsersCollection As IMongoCollection(Of BsonDocument) = Database.Users
 
     ' Secure Hashing with SHA-256
     Private Shared Function HashPassword(password As String) As String
@@ -30,7 +19,6 @@ Public Class AuthService
 
     ' Register User
     Public Shared Function RegisterUser(username As String, password As String) As Boolean
-        If Not TestConnection() Then Return False ' Check connection before proceeding
 
         Try
             ' Check if user already exists
@@ -65,7 +53,6 @@ Public Class AuthService
 
     ' Authenticate Login
     Public Shared Function AuthenticateUser(username As String, password As String) As Boolean
-        If Not TestConnection() Then Return False ' Check connection before proceeding
 
         Try
             Dim filter = Builders(Of BsonDocument).Filter.Eq(Of String)("Username", username)

@@ -34,7 +34,6 @@
                 <Setter Property="Padding" Value="10,8"/>
             </Style>
 
-            <!-- Custom Rounded Button Style -->
             <Style x:Key="RoundedButton" TargetType="Button">
                 <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"/>
                 <Setter Property="Foreground" Value="White"/>
@@ -42,30 +41,71 @@
                 <Setter Property="Height" Value="40"/>
                 <Setter Property="Padding" Value="10"/>
                 <Setter Property="Margin" Value="0,8"/>
-                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="White"/>
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" 
-                                    CornerRadius="20" 
-                                    Padding="{TemplateBinding Padding}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Border Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="20"
+                        Padding="{TemplateBinding Padding}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <materialDesign:PackIcon Name="icon" Kind="Lock" Width="20" Height="20"
+                                                 Foreground="{TemplateBinding Foreground}"
+                                                 Margin="0,0,8,0"/>
+                                    <TextBlock Name="text" Text="Login" Foreground="{TemplateBinding Foreground}"/>
+                                </StackPanel>
                             </Border>
+                            <ControlTemplate.Triggers>
+                                <!-- Hover Effect -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                    <Setter TargetName="text" Property="Foreground" Value="Black"/>
+                                    <Setter TargetName="icon" Property="Foreground" Value="Black"/>
+                                </Trigger>
+
+                                <!-- Pressed Effect -->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                                    <Setter TargetName="text" Property="Foreground" Value="Black"/>
+                                    <Setter TargetName="icon" Property="Foreground" Value="Black"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-                <Style.Triggers>
-                    <!-- Hover Effect -->
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource PrimaryHueDarkBrush}"/>
-                    </Trigger>
-                    <!-- Pressed Effect -->
-                    <Trigger Property="IsPressed" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
-                    </Trigger>
-                </Style.Triggers>
             </Style>
+
+            <Style x:Key="RegisterButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="LightGray"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="border" Background="{TemplateBinding Background}" CornerRadius="5" Padding="5">
+                                <TextBlock Name="text" Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" 
+                               HorizontalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!-- Hover Effect -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                                    <Setter TargetName="text" Property="Foreground" Value="Black"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </Window.Resources>
 
@@ -103,23 +143,27 @@
                              Margin="10"/>
             </materialDesign:Card>
 
-            <!-- Login Button -->
+
+            <!-- Login Button (Fixed) -->
             <Button Grid.Row="3" Name="btnLogin" Click="btnLogin_Click"
-                    Style="{StaticResource RoundedButton}">
+        Style="{StaticResource RoundedButton}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <materialDesign:PackIcon Kind="Lock" Width="20" Height="20" Margin="0,0,8,0"/>
-                    <TextBlock Text="Login"/>
+                    <materialDesign:PackIcon Kind="Lock" Width="20" Height="20"
+                                 Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                 Margin="0,0,8,0"/>
+                    <TextBlock Text="Login" 
+                   Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                 </StackPanel>
             </Button>
 
+
             <!-- Spacing for Register Button -->
-            <StackPanel Grid.Row="4" Height="5"/>
+            <StackPanel Grid.Row="4" Height="15"/>
 
             <!-- Register Button -->
             <Button Grid.Row="5" Name="btnRegister" Click="btnRegister_Click"
-                    Style="{StaticResource RoundedButton}" Background="Transparent" Foreground="LightGray">
-                <TextBlock Text="Don't have an account? Register the account instead"/>
-            </Button>
+                Style="{StaticResource RegisterButtonStyle}"
+                Content="Don't have an account? Register instead"/>
         </Grid>
     </materialDesign:Card>
 </Window>

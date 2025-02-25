@@ -40,12 +40,16 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Logout Button in Upper Right Corner -->
-            <Button Content="Logout" Click="Logout_Click" 
+            <!-- Logout Button with Themed Icon -->
+            <Button Click="Logout_Click"
                     HorizontalAlignment="Right" VerticalAlignment="Top" 
-                    Margin="8" Padding="8,4"
-                    Background="{DynamicResource PrimaryHueMidBrush}" 
-                    Foreground="White"/>
+                    Margin="8" Padding="8"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}">
+                <materialDesign:PackIcon Kind="Logout" Height="24" Width="24" 
+                 Foreground="White"/>
+            </Button>
 
             <!-- Chat Display Area -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,8,0,8"
@@ -78,12 +82,13 @@
                            VerticalAlignment="Center" Margin="8,4"/>
                 </materialDesign:Card>
 
-                <!-- Send Button -->
+                <!-- Send Button with Themed Icon -->
                 <Button Name="btnSend" Grid.Column="1" Click="btnSend_Click"
-                      Background="{DynamicResource PrimaryHueMidBrush}">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="Send" Height="20" Width="20"/>
-                    </Button.Content>
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}">
+                    <materialDesign:PackIcon Kind="Send" Height="24" Width="24" 
+                     Foreground="White"/>
                 </Button>
             </Grid>
         </Grid>

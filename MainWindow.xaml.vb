@@ -148,6 +148,9 @@ Namespace AIChatbot
             Me.Close()
         End Sub
 
+        Private Sub txtUserInput_TextChanged(sender As Object, e As TextChangedEventArgs) Handles txtUserInput.TextChanged
+
+        End Sub
     End Class
 
     ''' <summary>
