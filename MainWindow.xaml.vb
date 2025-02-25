@@ -140,6 +140,14 @@ Namespace AIChatbot
                 e.Handled = True
             End If
         End Sub
+
+        ' Logout
+        Private Sub Logout_Click(sender As Object, e As RoutedEventArgs)
+            Dim splashScreen As New SplashScreen()
+            splashScreen.Show()
+            Me.Close()
+        End Sub
+
     End Class
 
     ''' <summary>

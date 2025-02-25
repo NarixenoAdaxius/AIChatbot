@@ -11,19 +11,17 @@
         TextElement.FontSize="13"
         FontFamily="{materialDesign:MaterialDesignFont}">
 
-    <!-- Material Design Resources -->
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="DeepPurple" SecondaryColor="Lime"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Background Converter -->
+            <!-- Custom Resources -->
             <local:MessageBackgroundConverter x:Key="MessageBackgroundConverter"/>
 
-            <!-- Custom Rounded TextBox Style -->
             <Style x:Key="RoundedTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
                 <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="{DynamicResource PrimaryHueMidBrush}"/>
                 <Setter Property="materialDesign:HintAssist.Hint" Value="Type your message here..."/>
@@ -37,12 +35,20 @@
     <materialDesign:Card Margin="16" Background="#1E1E1E" UniformCornerRadius="8">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
+            <!-- Logout Button in Upper Right Corner -->
+            <Button Content="Logout" Click="Logout_Click" 
+                    HorizontalAlignment="Right" VerticalAlignment="Top" 
+                    Margin="8" Padding="8,4"
+                    Background="{DynamicResource PrimaryHueMidBrush}" 
+                    Foreground="White"/>
+
             <!-- Chat Display Area -->
-            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="0,0,0,8"
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,8,0,8"
                          Background="#252525" Padding="4"
                          materialDesign:ScrollBarAssist.ButtonsVisibility="Collapsed"
                          materialDesign:ScrollBarAssist.ThumbCornerRadius="4">
@@ -60,7 +66,7 @@
             </ScrollViewer>
 
             <!-- Input & Send Button -->
-            <Grid Grid.Row="1" Margin="8,0,8,8">
+            <Grid Grid.Row="2" Margin="8,0,8,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
