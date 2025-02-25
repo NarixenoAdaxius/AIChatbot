@@ -10,7 +10,7 @@ Public Class AIModel
         Try
             ' OpenAI API URL
             Dim apiUrl As String = "https://api.openai.com/v1/chat/completions"
-            Dim apiKey As String = "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" ' Replace with your actual API key
+            Dim apiKey As String = "" ' Replace with your actual API key
 
             ' Create request body
             Dim jsonBody As String = "{""model"":""gpt-3.5-turbo"", ""messages"":[{""role"":""user"", ""content"":""" & prompt & """}], ""temperature"":0.7}"
