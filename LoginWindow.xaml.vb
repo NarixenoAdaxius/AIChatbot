@@ -1,5 +1,4 @@
 ﻿Imports System.Windows
-Imports AIChatbot
 
 Namespace AIChatbot
     Partial Public Class LoginWindow
