@@ -1,4 +1,4 @@
-﻿Imports MongoDB.Bson
+Imports MongoDB.Bson
 Imports MongoDB.Driver
 Imports System.Security.Cryptography
 Imports System.Text
