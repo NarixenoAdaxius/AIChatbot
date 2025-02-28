@@ -25,7 +25,7 @@ Public Class AIModel
 
             ' Read response
             Dim responseData As String = Await response.Content.ReadAsStringAsync()
-            Console.WriteLine("Response Content: " & responseData) ' Debugging
+            Console.WriteLine("Response Content: " & responseData)
 
             ' Check if response is successful
             If response.IsSuccessStatusCode Then
